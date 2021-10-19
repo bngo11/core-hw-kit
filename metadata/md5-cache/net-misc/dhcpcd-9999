@@ -1,0 +1,12 @@
+DEFINED_PHASES=configure install postinst unpack
+DEPEND=udev? ( virtual/udev ) virtual/pkgconfig >=dev-vcs/git-1.8.2.1[curl]
+DESCRIPTION=A fully featured, yet light weight RFC2131 compliant DHCP client
+EAPI=6
+HOMEPAGE=https://roy.marples.name/projects/dhcpcd
+IUSE=elibc_glibc +embedded ipv6 kernel_linux +udev
+LICENSE=BSD-2
+PROPERTIES=live
+RDEPEND=udev? ( virtual/udev )
+SLOT=0
+_eclasses_=git-r3	7dcb8a92f5a091f13e82494fa317ca4b	multilib	d410501a125f99ffb560b0c523cd3d1e	systemd	71fd8d2065d102753fb9e4d20eaf3e9f	toolchain-funcs	24921b57d6561d87cbef4916a296ada4
+_md5_=2579fb37d3c90061a80c4c4ac5a9b521
