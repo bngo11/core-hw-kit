@@ -3,7 +3,7 @@
 from bs4 import BeautifulSoup
 
 async def generate(hub, **pkginfo):
-	html_data = await hub.pkgtools.fetch.get_page("https://www.github.com/openSUSE/hwinfo/releases")
+	html_data = await hub.pkgtools.fetch.get_page("https://www.github.com/openSUSE/hwinfo/tags")
 	soup = BeautifulSoup(html_data, "html.parser")
 	links = soup.find_all("a")
 	version = None
