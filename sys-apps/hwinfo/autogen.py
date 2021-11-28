@@ -22,7 +22,7 @@ async def generate(hub, **pkginfo):
 				continue
 
 	if version:
-		url = f"https://github.com/openSUSE/hwinfo/archive/{version}/hwinfo-{version}.tar.gz"
+		url = f"https://github.com/openSUSE/hwinfo/archive/refs/tags/{version}.tar.gz"
 		final_name = f"hwinfo-{version}.tar.gz"
 		ebuild = hub.pkgtools.ebuild.BreezyBuild(
 			**pkginfo,
