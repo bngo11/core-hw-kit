@@ -9,5 +9,5 @@ LICENSE=GPL-2 GPL-2+ GPL-3 BSD MIT MPL-1.1 linux-fw-redistributable BSD-2 BSD-4 
 RESTRICT=strip test
 SLOT=0
 SRC_URI=https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-20211216.tar.gz
-_eclasses_=mount-boot	4e916386c166c23418f8bea81a5f131e
-_md5_=3aa0492de8bd7224330e2269e624688e
+_eclasses_=ego	770e172d5c3e0d501d27925a01b44cbc	mount-boot	4e916386c166c23418f8bea81a5f131e
+_md5_=2118dc8241b188c2e4816b62401ebdcf
