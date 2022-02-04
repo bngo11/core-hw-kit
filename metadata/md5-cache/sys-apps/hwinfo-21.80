@@ -8,5 +8,4 @@ LICENSE=GPL-2
 RDEPEND=amd64? ( dev-libs/libx86emu ) x86? ( dev-libs/libx86emu )
 SLOT=0
 SRC_URI=https://github.com/openSUSE/hwinfo/archive/refs/tags/21.80.tar.gz -> hwinfo-21.80.tar.gz
-_eclasses_=multilib	d410501a125f99ffb560b0c523cd3d1e	toolchain-funcs	24921b57d6561d87cbef4916a296ada4
 _md5_=d48be7d4c48f6b89a77d137de89ec3dd
