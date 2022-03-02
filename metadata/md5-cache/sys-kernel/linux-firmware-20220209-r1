@@ -6,8 +6,9 @@ HOMEPAGE=https://git.kernel.org/?p=linux/kernel/git/firmware/linux-firmware.git
 IUSE=initramfs
 KEYWORDS=*
 LICENSE=GPL-2 GPL-2+ GPL-3 BSD MIT MPL-1.1 linux-fw-redistributable BSD-2 BSD-4 ISC no-source-code
+RDEPEND=initramfs? ( !<=app-admin/ego-2.8.5 )
 RESTRICT=strip test
 SLOT=0
 SRC_URI=https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-20220209.tar.gz
 _eclasses_=ego	770e172d5c3e0d501d27925a01b44cbc	mount-boot	4e916386c166c23418f8bea81a5f131e
-_md5_=62260097de49e296d5096b36fd196c61
+_md5_=92f632f0c5ca3ff0160a8c8e2455c3ab
