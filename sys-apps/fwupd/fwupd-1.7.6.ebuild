@@ -13,7 +13,7 @@ SRC_URI="https://github.com/fwupd/fwupd/releases/download/1.7.6/fwupd-1.7.6.tar.
 LICENSE="LGPL-2.1+"
 SLOT="0"
 KEYWORDS="*"
-IUSE="agent +colorhug consolekit +dell doc elogind +gpg +intel-amt +man +nvme +pkcs7 +redfish +synaptics systemd test +thunderbolt +uefi"
+IUSE="+colorhug consolekit +dell doc elogind +intel-amt +man +nvme redfish +synaptics systemd test +thunderbolt +uefi"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}
 	^^ ( consolekit elogind systemd )
@@ -28,8 +28,10 @@ RDEPEND="${PYTHON_DEPS}
 	dev-libs/json-glib
 	dev-libs/libgpg-error
 	dev-libs/libgudev:=
+	dev-libs/protobuf-c
 	>=dev-libs/libgusb-0.2.9[introspection]
-	>=dev-libs/libxmlb-0.1.7
+	>=dev-libs/libxmlb-0.3.7
+	>=dev-libs/libjcat-0.1.10
 	$(python_gen_cond_dep '
 	dev-python/pillow[${PYTHON_USEDEP}]
 	dev-python/pycairo[${PYTHON_USEDEP}]
@@ -45,12 +47,10 @@ RDEPEND="${PYTHON_DEPS}
 		>=sys-libs/libsmbios-2.4.0
 	)
 	elogind? ( sys-auth/elogind )
-	gpg? (
-		app-crypt/gpgme
-		dev-libs/libgpg-error
-	)
+	app-crypt/gpgme
+	dev-libs/libgpg-error
 	nvme? ( sys-libs/efivar )
-	pkcs7? ( >=net-libs/gnutls-3.4.4.1:= )
+	>=net-libs/gnutls-3.4.4.1:=
 	redfish? ( sys-libs/efivar )
 	systemd? ( >=sys-apps/systemd-211 )
 	thunderbolt? ( sys-apps/thunderbolt-software-user-space )
@@ -61,6 +61,7 @@ RDEPEND="${PYTHON_DEPS}
 		>=sys-libs/efivar-33
 		x11-libs/cairo
 		app-crypt/tpm2-tss
+		sys-apps/fwupd-efi
 	)
 "
 DEPEND="${RDEPEND}
@@ -85,10 +86,6 @@ PDEPEND="sys-apps/dbus"
 
 src_prepare() {
 	default
-	sed -e "s/'--create'/'--absolute-name', '--create'/" \
-		-i data/tests/builder/meson.build || die
-	sed -e "/'-Werror',/d" \
-		-i plugins/uefi/efi/meson.build || die
 	vala_src_prepare
 }
 
@@ -96,13 +93,10 @@ src_configure() {
 	xdg_environment_reset
 	local emesonargs=(
 		--localstatedir "${EPREFIX}"/var
-		-Dagent="$(usex agent true false)"
 		-Dconsolekit="$(usex consolekit true false)"
-		-Dgtkdoc="$(usex doc true false)"
+		-Ddocs="$(usex doc gtkdoc none)"
 		-Delogind="$(usex elogind true false)"
-		-Dgpg="$(usex gpg true false)"
 		-Dman="$(usex man true false)"
-		-Dpkcs7="$(usex pkcs7 true false)"
 		-Dplugin_amt="$(usex intel-amt true false)"
 		-Dplugin_dell="$(usex dell true false)"
 		# Requires libflashrom which our sys-apps/flashrom
@@ -112,9 +106,12 @@ src_configure() {
 		-Dplugin_modem_manager="false"
 		-Dplugin_nvme="$(usex nvme true false)"
 		-Dplugin_redfish="$(usex redfish true false)"
-		-Dplugin_synaptics="$(usex synaptics true false)"
+		-Dplugin_synaptics_mst="$(usex synaptics true false)"
+		-Dplugin_synaptics_rmi="$(usex synaptics true false)"
 		-Dplugin_thunderbolt="$(usex thunderbolt true false)"
-		-Dplugin_uefi="$(usex uefi true false)"
+		-Dplugin_uefi_capsule="$(usex uefi true false)"
+		-Dplugin_uefi_capsule_splash="$(usex uefi true false)"
+		-Dplugin_uefi_pk="$(usex uefi true false)"
 		-Dsystemd="$(usex systemd true false)"
 		-Dtests="$(usex test true false)"
 	)
