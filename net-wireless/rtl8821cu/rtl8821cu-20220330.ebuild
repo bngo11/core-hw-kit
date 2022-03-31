@@ -5,7 +5,7 @@ inherit linux-mod
 
 DESCRIPTION="Realtek RTL8811CU/RTL8821CU USB wifi adapter driver"
 HOMEPAGE="https://github.com/brektrou/rtl8821CU"
-SRC_URI="https://github.com/brektrou/rtl8821CU/archive/ef3ff12118a75ea9ca1db8f4806bb0861e4fffef.tar.gz -> rtl8821cu-20211114.tar.gz"
+SRC_URI="https://github.com/brektrou/rtl8821CU/archive/de68bd50671ad8a5c09af97def3f2059b4a088aa.tar.gz -> rtl8821cu-20220330.tar.gz"
 
 LICENSE="GPL-2"
 KEYWORDS="*"
