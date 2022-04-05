@@ -8,7 +8,7 @@ inherit meson python-single-r1 vala xdg-utils
 
 DESCRIPTION="Aims to make updating firmware on Linux automatic, safe and reliable"
 HOMEPAGE="https://fwupd.org"
-SRC_URI="https://github.com/fwupd/fwupd/releases/download/1.7.6/fwupd-1.7.6.tar.xz -> fwupd-1.7.6.tar.xz"
+SRC_URI="https://github.com/fwupd/fwupd/releases/download/1.7.7/fwupd-1.7.7.tar.xz -> fwupd-1.7.7.tar.xz"
 
 LICENSE="LGPL-2.1+"
 SLOT="0"
