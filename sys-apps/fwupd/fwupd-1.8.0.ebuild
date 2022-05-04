@@ -4,139 +4,174 @@ EAPI=7
 
 PYTHON_COMPAT=( python3+ )
 
-inherit meson python-single-r1 vala xdg-utils
+inherit bash-completion-r1 linux-info meson python-single-r1 vala xdg
 
 DESCRIPTION="Aims to make updating firmware on Linux automatic, safe and reliable"
 HOMEPAGE="https://fwupd.org"
-SRC_URI="https://github.com/fwupd/fwupd/releases/download/1.8.0/fwupd-1.8.0.tar.xz -> fwupd-1.8.0.tar.xz"
+SRC_URI="https://github.com/fwupd/fwupd/tarball/9bf8724bf416577339bf5c1a487cf62fa23d5b00 -> fwupd-1.8.0-9bf8724.tar.gz"
 
 LICENSE="LGPL-2.1+"
 SLOT="0"
 KEYWORDS="*"
-IUSE="+colorhug consolekit +dell doc elogind +intel-amt +man +nvme redfish +synaptics systemd test +thunderbolt +uefi"
-
+IUSE="amt archive bash-completion bluetooth +dell +elogind fastboot flashrom gnutls gtk-doc gusb introspection logitech lzma +man minimal modemmanager nvme policykit spi +sqlite synaptics test thunderbolt tpm uefi"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}
-	^^ ( consolekit elogind systemd )
+	^^ ( elogind minimal )
 	dell? ( uefi )
+	fastboot? ( gusb )
+	logitech? ( gusb )
+	minimal? ( !introspection )
+	spi? ( lzma )
+	synaptics? ( gnutls )
+	uefi? ( gnutls )
 "
+RESTRICT="!test? ( test )"
 
-RDEPEND="${PYTHON_DEPS}
-	app-arch/gcab
-	app-arch/libarchive:=
-	dev-db/sqlite
-	>=dev-libs/glib-2.45.8:2
-	dev-libs/json-glib
-	dev-libs/libgpg-error
-	dev-libs/libgudev:=
-	dev-libs/protobuf-c
-	>=dev-libs/libgusb-0.2.9[introspection]
-	>=dev-libs/libxmlb-0.3.7
-	>=dev-libs/libjcat-0.1.10
-	$(python_gen_cond_dep '
-	dev-python/pillow[${PYTHON_USEDEP}]
-	dev-python/pycairo[${PYTHON_USEDEP}]
-	dev-python/pygobject:3[cairo,${PYTHON_USEDEP}]
-	')
-	>=net-libs/libsoup-2.51.92:2.4[introspection]
-	>=sys-auth/polkit-0.103
-	virtual/libelf:0=
-	colorhug? ( >=x11-misc/colord-1.2.12:0= )
-	consolekit? ( >=sys-auth/consolekit-1.0.0 )
-	dell? (
-		sys-libs/efivar
-		>=sys-libs/libsmbios-2.4.0
-	)
-	elogind? ( sys-auth/elogind )
-	app-crypt/gpgme
-	dev-libs/libgpg-error
-	nvme? ( sys-libs/efivar )
-	>=net-libs/gnutls-3.4.4.1:=
-	redfish? ( sys-libs/efivar )
-	systemd? ( >=sys-apps/systemd-211 )
-	thunderbolt? ( sys-apps/thunderbolt-software-user-space )
-	uefi? (
-		media-libs/fontconfig
-		media-libs/freetype
-		sys-boot/gnu-efi
-		>=sys-libs/efivar-33
-		x11-libs/cairo
-		app-crypt/tpm2-tss
-		sys-apps/fwupd-efi
-	)
-"
-DEPEND="${RDEPEND}
-	$(vala_depend)
-	x11-libs/pango[introspection]
-	nvme? (	>=sys-kernel/linux-headers-4.4 )
-	test? ( net-libs/gnutls[tools] )
-"
-BDEPEND="
-	>=dev-util/meson-0.47.0
+BDEPEND="$(vala_depend)
 	virtual/pkgconfig
-	doc? ( dev-util/gtk-doc )
+	gtk-doc? ( dev-util/gtk-doc )
+	bash-completion? ( >=app-shells/bash-completion-2.0 )
+	introspection? ( dev-libs/gobject-introspection )
 	man? (
 		app-text/docbook-sgml-utils
 		sys-apps/help2man
 	)
+	test? (
+		thunderbolt? ( dev-util/umockdev )
+		net-libs/gnutls[tools]
+	)
+"
+COMMON_DEPEND="${PYTHON_DEPS}
+	>=app-arch/gcab-1.0
+	app-arch/xz-utils
+	>=dev-libs/glib-2.58:2
+	dev-libs/json-glib
+	dev-libs/libgudev:=
+	>=dev-libs/libjcat-0.1.4[gpg,pkcs7]
+	>=dev-libs/libxmlb-0.1.13:=[introspection?]
+	$(python_gen_cond_dep '
+		dev-python/pygobject:3[cairo,${PYTHON_USEDEP}]
+	')
+	>=net-libs/libsoup-2.51.92:2.4[introspection?]
+	net-misc/curl
+	archive? ( app-arch/libarchive:= )
+	dell? ( >=sys-libs/libsmbios-2.4.0 )
+	elogind? ( >=sys-auth/elogind-211 )
+	flashrom? ( >=sys-apps/flashrom-1.2-r3 )
+	gnutls? ( net-libs/gnutls )
+	gusb? ( >=dev-libs/libgusb-0.3.5[introspection?] )
+	logitech? ( dev-libs/protobuf-c:= )
+	lzma? ( app-arch/xz-utils )
+	modemmanager? ( net-misc/modemmanager[qmi] )
+	policykit? ( >=sys-auth/polkit-0.103 )
+	sqlite? ( dev-db/sqlite )
+	tpm? ( app-crypt/tpm2-tss:= )
+	uefi? (
+		sys-apps/fwupd-efi
+		sys-boot/efibootmgr
+		sys-fs/udisks
+		sys-libs/efivar
+	)
+"
+# Block sci-chemistry/chemical-mime-data for bug #701900
+RDEPEND="
+	!<sci-chemistry/chemical-mime-data-0.1.94-r4
+	${COMMON_DEPEND}
+	sys-apps/dbus
 "
 
-# required for fwupd daemon to run.
-# NOT a build time dependency. The build system does not check for dbus.
-PDEPEND="sys-apps/dbus"
+DEPEND="
+	${COMMON_DEPEND}
+	x11-libs/pango[introspection]
+"
+
+pkg_setup() {
+	python-single-r1_pkg_setup
+	if use nvme ; then
+		kernel_is -ge 4 4 || die "NVMe support requires kernel >= 4.4"
+	fi
+}
+
+post_src_unpack() {
+	if [ ! -d "${S}" ]; then
+		mv fwupd-fwupd* "${S}" || die
+	fi
+}
 
 src_prepare() {
 	default
+	# c.f. https://github.com/fwupd/fwupd/issues/1414
+	sed -e "/test('thunderbolt-self-test', e, env: test_env, timeout : 120)/d" \
+		-i plugins/thunderbolt/meson.build || die
+
+	sed -e '/platform-integrity/d' \
+		-i plugins/meson.build || die #753521
+
+	sed -e "/install_dir.*'doc'/s/fwupd/${PF}/" \
+		-i data/builder/meson.build || die
+
 	vala_src_prepare
 }
 
 src_configure() {
-	xdg_environment_reset
+	local plugins=(
+		-Dplugin_gpio="true"
+		$(meson_use amt plugin_amt)
+		$(meson_use dell plugin_dell)
+		$(meson_use fastboot plugin_fastboot)
+		$(meson_use flashrom plugin_flashrom)
+		$(meson_use gusb plugin_uf2)
+		$(meson_use logitech plugin_logitech_bulkcontroller)
+		$(meson_use modemmanager plugin_modem_manager)
+		$(meson_use nvme plugin_nvme)
+		$(meson_use sqlite)
+		$(meson_use spi plugin_intel_spi)
+		$(meson_use synaptics plugin_synaptics_mst)
+		$(meson_use synaptics plugin_synaptics_rmi)
+		$(meson_use thunderbolt plugin_thunderbolt)
+		$(meson_use tpm plugin_tpm)
+		$(meson_use uefi plugin_uefi_capsule)
+		$(meson_use uefi plugin_uefi_capsule_splash)
+		$(meson_use uefi plugin_uefi_pk)
+	)
+	use ppc64 && plugins+=( -Dplugin_msr="false" )
+	use riscv && plugins+=( -Dplugin_msr="false" )
+
 	local emesonargs=(
 		--localstatedir "${EPREFIX}"/var
-		-Dconsolekit="$(usex consolekit true false)"
-		-Ddocs="$(usex doc gtkdoc none)"
-		-Delogind="$(usex elogind true false)"
-		-Dman="$(usex man true false)"
-		-Dplugin_amt="$(usex intel-amt true false)"
-		-Dplugin_dell="$(usex dell true false)"
-		# Requires libflashrom which our sys-apps/flashrom
-		# package does not provide
-		-Dplugin_flashrom="false"
-		# Dependencies are not available (yet?)
-		-Dplugin_modem_manager="false"
-		-Dplugin_nvme="$(usex nvme true false)"
-		-Dplugin_redfish="$(usex redfish true false)"
-		-Dplugin_synaptics_mst="$(usex synaptics true false)"
-		-Dplugin_synaptics_rmi="$(usex synaptics true false)"
-		-Dplugin_thunderbolt="$(usex thunderbolt true false)"
-		-Dplugin_uefi_capsule="$(usex uefi true false)"
-		-Dplugin_uefi_capsule_splash="$(usex uefi true false)"
-		-Dplugin_uefi_pk="$(usex uefi true false)"
-		-Dsystemd="$(usex systemd true false)"
-		-Dtests="$(usex test true false)"
-	)
+		-Dbuild="$(usex minimal standalone all)"
+		-Dconsolekit="false"
+		-Dsystemd="false"
+		-Dcurl="true"
+		-Ddocs="$(usex gtk-doc gtkdoc none)"
+		-Defi_binary="false"
+		-Dsupported_build="true"
+		$(meson_use archive libarchive)
+		$(meson_use bash-completion bash_completion)
+		$(meson_use bluetooth bluez)
+		$(meson_use elogind)
+		$(meson_use gnutls)
+		$(meson_use gusb)
+		$(meson_use lzma)
+		$(meson_use man)
+		$(meson_use introspection)
+		$(meson_use policykit polkit)
+		$(meson_use test tests)
 
+		${plugins[@]}
+	)
+	use uefi && emesonargs+=( -Defi_os_dir="funtoo" )
+	export CACHE_DIRECTORY="${T}"
 	meson_src_configure
 }
 
 src_install() {
 	meson_src_install
 
-	sed "s@%SEAT_MANAGER%@$(usex elogind elogind consolekit)@" \
-		"${FILESDIR}"/${PN}-r1 \
-		> "${T}"/${PN} || die
-	doinitd "${T}"/${PN}
+	if ! use minimal ; then
+		newinitd "${FILESDIR}"/${PN}-r1 ${PN}
 
-	if ! use systemd ; then
 		# Don't timeout when fwupd is running (#673140)
 		sed '/^IdleTimeout=/s@=[[:digit:]]\+@=0@' \
 			-i "${ED}"/etc/${PN}/daemon.conf || die
 	fi
-}
-
-pkg_postinst() {
-	elog "In case you are using openrc as init system"
-	elog "and you're upgrading from <fwupd-1.1.0, you"
-	elog "need to start the fwupd daemon via the openrc"
-	elog "init script that comes with this package."
 }
