@@ -8,7 +8,7 @@ inherit bash-completion-r1 linux-info meson python-single-r1 vala xdg
 
 DESCRIPTION="Aims to make updating firmware on Linux automatic, safe and reliable"
 HOMEPAGE="https://fwupd.org"
-SRC_URI="https://github.com/fwupd/fwupd/tarball/9bf8724bf416577339bf5c1a487cf62fa23d5b00 -> fwupd-1.8.0-9bf8724.tar.gz"
+SRC_URI="https://github.com/fwupd/fwupd/tarball/b5e7e01fc3d788ab469e1dc310bfce9d0bbdc641 -> fwupd-1.8.1-b5e7e01.tar.gz"
 
 LICENSE="LGPL-2.1+"
 SLOT="0"
@@ -54,7 +54,10 @@ COMMON_DEPEND="${PYTHON_DEPS}
 	>=net-libs/libsoup-2.51.92:2.4[introspection?]
 	net-misc/curl
 	archive? ( app-arch/libarchive:= )
-	dell? ( >=sys-libs/libsmbios-2.4.0 )
+	dell? (
+		>=app-crypt/tpm2-tss-2.0
+		>=sys-libs/libsmbios-2.4.0
+	)
 	elogind? ( >=sys-auth/elogind-211 )
 	flashrom? ( >=sys-apps/flashrom-1.2-r3 )
 	gnutls? ( net-libs/gnutls )
@@ -114,24 +117,24 @@ src_prepare() {
 
 src_configure() {
 	local plugins=(
-		-Dplugin_gpio="true"
-		$(meson_use amt plugin_amt)
-		$(meson_use dell plugin_dell)
-		$(meson_use fastboot plugin_fastboot)
-		$(meson_use flashrom plugin_flashrom)
-		$(meson_use gusb plugin_uf2)
-		$(meson_use logitech plugin_logitech_bulkcontroller)
-		$(meson_use modemmanager plugin_modem_manager)
-		$(meson_use nvme plugin_nvme)
+		-Dplugin_gpio="enabled"
+		$(meson_feature amt plugin_amt)
+		$(meson_feature dell plugin_dell)
+		$(meson_feature fastboot plugin_fastboot)
+		$(meson_feature flashrom plugin_flashrom)
+		$(meson_feature gusb plugin_uf2)
+		$(meson_feature logitech plugin_logitech_bulkcontroller)
+		$(meson_feature modemmanager plugin_modem_manager)
+		$(meson_feature nvme plugin_nvme)
 		$(meson_use sqlite)
 		$(meson_use spi plugin_intel_spi)
-		$(meson_use synaptics plugin_synaptics_mst)
-		$(meson_use synaptics plugin_synaptics_rmi)
-		$(meson_use thunderbolt plugin_thunderbolt)
-		$(meson_use tpm plugin_tpm)
-		$(meson_use uefi plugin_uefi_capsule)
+		$(meson_feature synaptics plugin_synaptics_mst)
+		$(meson_feature synaptics plugin_synaptics_rmi)
+		$(meson_feature thunderbolt plugin_thunderbolt)
+		$(meson_feature tpm plugin_tpm)
+		$(meson_feature uefi plugin_uefi_capsule)
 		$(meson_use uefi plugin_uefi_capsule_splash)
-		$(meson_use uefi plugin_uefi_pk)
+		$(meson_feature uefi plugin_uefi_pk)
 	)
 	use ppc64 && plugins+=( -Dplugin_msr="false" )
 	use riscv && plugins+=( -Dplugin_msr="false" )
@@ -139,22 +142,22 @@ src_configure() {
 	local emesonargs=(
 		--localstatedir "${EPREFIX}"/var
 		-Dbuild="$(usex minimal standalone all)"
-		-Dconsolekit="false"
-		-Dsystemd="false"
-		-Dcurl="true"
+		-Dconsolekit="disabled"
+		-Dsystemd="disabled"
+		-Dcurl="enabled"
 		-Ddocs="$(usex gtk-doc gtkdoc none)"
 		-Defi_binary="false"
-		-Dsupported_build="true"
-		$(meson_use archive libarchive)
+		-Dsupported_build="enabled"
+		$(meson_feature archive libarchive)
 		$(meson_use bash-completion bash_completion)
-		$(meson_use bluetooth bluez)
-		$(meson_use elogind)
-		$(meson_use gnutls)
-		$(meson_use gusb)
-		$(meson_use lzma)
+		$(meson_feature bluetooth bluez)
+		$(meson_feature elogind)
+		$(meson_feature gnutls)
+		$(meson_feature gusb)
+		$(meson_feature lzma)
 		$(meson_use man)
-		$(meson_use introspection)
-		$(meson_use policykit polkit)
+		$(meson_feature introspection)
+		$(meson_feature policykit polkit)
 		$(meson_use test tests)
 
 		${plugins[@]}
