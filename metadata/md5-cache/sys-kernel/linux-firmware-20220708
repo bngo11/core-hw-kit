@@ -9,6 +9,6 @@ LICENSE=GPL-2 GPL-2+ GPL-3 BSD MIT MPL-1.1 linux-fw-redistributable BSD-2 BSD-4 
 RDEPEND=initramfs? ( !<=app-admin/ego-2.8.5 )
 RESTRICT=strip test
 SLOT=0
-SRC_URI=https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-20220610.tar.gz
+SRC_URI=https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-20220708.tar.gz
 _eclasses_=ego	770e172d5c3e0d501d27925a01b44cbc	mount-boot	4e916386c166c23418f8bea81a5f131e
-_md5_=30b896cdeb5daa2162f0c102f9bc6b86
+_md5_=86df94860191946d25f9c82b189d2f65
