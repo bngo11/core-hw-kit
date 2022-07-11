@@ -13,7 +13,7 @@ SRC_URI="https://github.com/fwupd/fwupd/tarball/4c7ca5f13e289d428e1bb26bf605b797
 LICENSE="LGPL-2.1+"
 SLOT="0"
 KEYWORDS="*"
-IUSE="amt archive bash-completion bluetooth +dell +elogind fastboot flashrom gnutls gtk-doc gusb introspection logitech lzma +man minimal modemmanager nvme policykit spi +sqlite synaptics test thunderbolt tpm uefi"
+IUSE="amt archive bash-completion bluetooth +dell +elogind fastboot flashrom gnutls gtk-doc gusb introspection logitech lzma +man minimal modemmanager nvme policykit spi +sqlite synaptics test tpm uefi"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}
 	^^ ( elogind minimal )
 	dell? ( uefi )
@@ -36,7 +36,6 @@ BDEPEND="$(vala_depend)
 		sys-apps/help2man
 	)
 	test? (
-		thunderbolt? ( dev-util/umockdev )
 		net-libs/gnutls[tools]
 	)
 "
@@ -126,11 +125,10 @@ src_configure() {
 		$(meson_feature logitech plugin_logitech_bulkcontroller)
 		$(meson_feature modemmanager plugin_modem_manager)
 		$(meson_feature nvme plugin_nvme)
-		$(meson_use sqlite)
+		$(meson_feature sqlite)
 		$(meson_use spi plugin_intel_spi)
 		$(meson_feature synaptics plugin_synaptics_mst)
 		$(meson_feature synaptics plugin_synaptics_rmi)
-		$(meson_feature thunderbolt plugin_thunderbolt)
 		$(meson_feature tpm plugin_tpm)
 		$(meson_feature uefi plugin_uefi_capsule)
 		$(meson_use uefi plugin_uefi_capsule_splash)
@@ -145,9 +143,9 @@ src_configure() {
 		-Dconsolekit="disabled"
 		-Dsystemd="disabled"
 		-Dcurl="enabled"
-		-Ddocs="$(usex gtk-doc gtkdoc none)"
 		-Defi_binary="false"
 		-Dsupported_build="enabled"
+		$(meson_feature gtk-doc docs)
 		$(meson_feature archive libarchive)
 		$(meson_use bash-completion bash_completion)
 		$(meson_feature bluetooth bluez)
