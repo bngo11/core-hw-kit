@@ -6,7 +6,7 @@ inherit toolchain-funcs
 
 DESCRIPTION="Hardware detection tool used in SuSE Linux"
 HOMEPAGE="https://github.com/openSUSE/hwinfo/"
-SRC_URI="https://github.com/openSUSE/hwinfo/archive/refs/tags/21.82.tar.gz -> hwinfo-21.82.tar.gz"
+SRC_URI="https://github.com/openSUSE/hwinfo/archive/refs/tags/21.83.tar.gz -> hwinfo-21.83.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -28,11 +28,11 @@ src_prepare() {
 src_compile() {
 	tc-export AR
 	MAKEOPTS="-j1"
-	emake CC="$(tc-getCC)" HWINFO_VERSION="21.82"
+	emake CC="$(tc-getCC)" HWINFO_VERSION="21.83"
 }
 
 src_install() {
-	emake DESTDIR="${ED}" LIBDIR="/usr/$(get_libdir)" HWINFO_VERSION="21.82" install
+	emake DESTDIR="${ED}" LIBDIR="/usr/$(get_libdir)" HWINFO_VERSION="21.83" install
 	keepdir /var/lib/hardware/udi
 
 	dodoc changelog README*
