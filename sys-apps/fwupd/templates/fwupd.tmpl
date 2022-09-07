@@ -105,11 +105,7 @@ src_prepare() {
 	sed -e "/test('thunderbolt-self-test', e, env: test_env, timeout : 120)/d" \
 		-i plugins/thunderbolt/meson.build || die
 
-	sed -e '/platform-integrity/d' \
-		-i plugins/meson.build || die #753521
-
-	sed -e "/install_dir.*'doc'/s/fwupd/${PF}/" \
-		-i data/builder/meson.build || die
+	sed -e '/platform-integrity/d' -i plugins/meson.build || die #753521
 
 	vala_src_prepare
 }
