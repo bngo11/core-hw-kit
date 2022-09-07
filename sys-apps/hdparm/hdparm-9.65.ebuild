@@ -6,7 +6,7 @@ inherit toolchain-funcs flag-o-matic
 
 DESCRIPTION="Utility to change hard drive performance parameters"
 HOMEPAGE="https://sourceforge.net/projects/hdparm/"
-SRC_URI="https://downloads.sourceforge.net/hdparm/hdparm/hdparm-9.64.tar.gz -> hdparm-9.64.tar.gz"
+SRC_URI="https://downloads.sourceforge.net/hdparm/hdparm/hdparm-9.65.tar.gz -> hdparm-9.65.tar.gz"
 #SRC_URI="https://sourceforge.net/projects/hdparm/files/hdparm/"
 
 LICENSE="BSD GPL-2" # GPL-2 only
