@@ -1,5 +1,5 @@
 DEFINED_PHASES=compile configure install prepare pretend setup unpack
-DEPEND=!binary? ( >=sys-power/iasl-20060912 || ( dev-lang/python:3.10 dev-lang/python:3.8 dev-lang/python:3.9 dev-lang/python:3.7 ) )
+DEPEND=!binary? ( >=sys-power/iasl-20060912 || ( dev-lang/python:3.8 dev-lang/python:3.9 dev-lang/python:3.7 dev-lang/python:3.10 ) )
 DESCRIPTION=Open Source implementation of a 16-bit x86 BIOS
 EAPI=7
 HOMEPAGE=https://www.seabios.org/

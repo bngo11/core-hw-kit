@@ -9,7 +9,7 @@ HOMEPAGE="https://www.libimobiledevice.org/"
 SRC_URI="https://cgit.libimobiledevice.org/${PN}.git/snapshot/${P}.tar.bz2"
 LICENSE="GPL-2+ LGPL-2.1+" # tools/*.c is GPL-2+, rest is LGPL-2.1+
 SLOT="0/2.0-6" # based on SONAME of libusbmuxd-2.0.so
-KEYWORDS="*"
+KEYWORDS="amd64 ~arm ~arm64 ppc ~ppc64 ~riscv x86"
 IUSE="static-libs"
 
 RDEPEND="
