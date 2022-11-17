@@ -13,7 +13,7 @@ SRC_URI="https://github.com/fwupd/fwupd/tarball/ebb6237e974c6c966aeff3dd05815aa0
 LICENSE="LGPL-2.1+"
 SLOT="0"
 KEYWORDS="*"
-IUSE="amt archive bash-completion bluetooth +dell +elogind fastboot flashrom gnutls gtk-doc gusb introspection logitech lzma +man minimal modemmanager nvme policykit spi +sqlite synaptics test tpm uefi"
+IUSE="archive bash-completion bluetooth +dell +elogind fastboot flashrom gnutls gtk-doc gusb introspection logitech lzma +man minimal modemmanager nvme policykit spi +sqlite synaptics test tpm uefi"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}
 	^^ ( elogind minimal )
 	dell? ( uefi )
@@ -113,7 +113,6 @@ src_prepare() {
 src_configure() {
 	local plugins=(
 		-Dplugin_gpio="enabled"
-		$(meson_feature amt plugin_amt)
 		$(meson_feature dell plugin_dell)
 		$(meson_feature fastboot plugin_fastboot)
 		$(meson_feature flashrom plugin_flashrom)
