@@ -6,7 +6,7 @@ inherit autotools systemd udev
 
 DESCRIPTION="USB multiplex daemon for use with Apple iPhone/iPod Touch devices"
 HOMEPAGE="https://libimobiledevice.org/"
-SRC_URI="https://github.com/libimobiledevice/usbmuxd/tarball/79c8b38d1488a6b07e1e68f39d8caec3f1a45622 -> usbmuxd-1.1.1-79c8b38.tar.gz"
+SRC_URI="{{ artifacts[0].src_uri }}"
 
 # src/utils.h is LGPL-2.1+, rest is found in COPYING*
 LICENSE="GPL-2 GPL-3 LGPL-2.1+"
@@ -30,7 +30,7 @@ BDEPEND="
 
 post_src_unpack() {
 	if [ ! -d "${S}" ]; then
-		mv libimobiledevice-usbmuxd* "${S}" || die
+		mv {{ github_user }}-{{ github_repo }}* "${S}" || die
 	fi
 }
 
