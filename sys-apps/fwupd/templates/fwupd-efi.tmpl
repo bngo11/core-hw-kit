@@ -37,8 +37,7 @@ src_prepare() {
 
 src_configure() {
 	local emesonargs=(
-		-Defi-cc="$(tc-getCC)"
-		-Defi-ld="$(tc-getLD)"
+		-Defi-libdir="${EPREFIX}"/usr/$(get_libdir)
 		-Defi_sbat_distro_id="funtoo"
 		-Defi_sbat_distro_summary="Funtoo GNU/Linux"
 		-Defi_sbat_distro_pkgname="${PN}"
