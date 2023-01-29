@@ -17,6 +17,7 @@ IUSE=""
 
 BDEPEND="
 	${PYTHON_DEPS}
+	dev-python/pefile
 	virtual/pkgconfig
 "
 
