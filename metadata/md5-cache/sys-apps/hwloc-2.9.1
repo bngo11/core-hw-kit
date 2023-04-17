@@ -1,0 +1,14 @@
+BDEPEND=>=sys-devel/autoconf-2.69-r5 virtual/pkgconfig >=app-portage/elt-patches-20170815 !<sys-devel/gettext-0.18.1.1-r3 || ( >=sys-devel/automake-1.16.1:1.16 >=sys-devel/automake-1.15.1:1.15 ) >=sys-devel/autoconf-2.69 >=sys-devel/libtool-2.4
+DEFINED_PHASES=configure install prepare unpack
+DEPEND=>=sys-libs/ncurses-5.9-r3:= cairo? ( >=x11-libs/cairo-1.12.14-r4[X?,svg(+)?] ) cuda? ( >=dev-util/nvidia-cuda-toolkit-6.5.19-r1:= ) nvml? ( x11-drivers/nvidia-drivers ) pci? ( >=sys-apps/pciutils-3.3.0-r2 >=x11-libs/libpciaccess-0.13.1-r1 ) udev? ( virtual/libudev:= ) xml? ( >=dev-libs/libxml2-2.9.1-r4 ) video_cards_nvidia? ( x11-drivers/nvidia-drivers[static-libs] x11-libs/libXext x11-libs/libX11 )
+DESCRIPTION=Displays the hardware topology in convenient formats
+EAPI=7
+HOMEPAGE=https://www.open-mpi.org/projects/hwloc/
+IUSE=cairo +cpuid cuda debug nvml +pci static-libs svg udev xml X video_cards_nvidia
+KEYWORDS=*
+LICENSE=BSD
+RDEPEND=>=sys-libs/ncurses-5.9-r3:= cairo? ( >=x11-libs/cairo-1.12.14-r4[X?,svg(+)?] ) cuda? ( >=dev-util/nvidia-cuda-toolkit-6.5.19-r1:= ) nvml? ( x11-drivers/nvidia-drivers ) pci? ( >=sys-apps/pciutils-3.3.0-r2 >=x11-libs/libpciaccess-0.13.1-r1 ) udev? ( virtual/libudev:= ) xml? ( >=dev-libs/libxml2-2.9.1-r4 ) video_cards_nvidia? ( x11-drivers/nvidia-drivers[static-libs] x11-libs/libXext x11-libs/libX11 )
+SLOT=0/15
+SRC_URI=https://github.com/open-mpi/hwloc/tarball/9495b001fb1ed640460fdd6d9fc1dab85387c331 -> hwloc-2.9.1-9495b00.tar.gz
+_eclasses_=autotools	5223f703a2e9c194fcda924f8c4b6baf	bash-completion-r1	47a7402d95930413ce25ba8d857339bb	cuda	bb861e5221b7272ac90c2f12791c1e66	desktop	b1d22ac8bdd4679ab79c71aca235009d	eutils	6e6c2737b59a4b982de6fb3ecefd87f8	flag-o-matic	d0939f99dd528dd0c5ec25284877bf5c	libtool	f143db5a74ccd9ca28c1234deffede96	multilib	d410501a125f99ffb560b0c523cd3d1e	toolchain-funcs	24921b57d6561d87cbef4916a296ada4
+_md5_=e3b53e5ce032015dfed2406c894cfacd
