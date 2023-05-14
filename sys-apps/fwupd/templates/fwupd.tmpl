@@ -165,9 +165,5 @@ src_install() {
 
 	if ! use minimal ; then
 		newinitd "${FILESDIR}"/${PN}-r2 ${PN}
-
-		# Don't timeout when fwupd is running (#673140)
-		sed '/^IdleTimeout=/s@=[[:digit:]]\+@=0@' \
-			-i "${ED}"/etc/${PN}/daemon.conf || die
 	fi
 }
