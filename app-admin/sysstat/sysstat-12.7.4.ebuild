@@ -5,7 +5,7 @@ inherit eutils flag-o-matic systemd toolchain-funcs
 
 DESCRIPTION="System performance tools for Linux"
 HOMEPAGE="http://pagesperso-orange.fr/sebastien.godard/"
-SRC_URI="https://github.com/sysstat/sysstat/tarball/ac1df71ca252c158e8d418ded93e5ed52f5e8765 -> sysstat-12.7.2-ac1df71.tar.gz"
+SRC_URI="https://github.com/sysstat/sysstat/tarball/1df0d61306ae826c896a5cf6f665d58c671c0498 -> sysstat-12.7.4-1df0d61.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
