@@ -6,7 +6,7 @@ inherit toolchain-funcs
 
 DESCRIPTION="Hardware information tool"
 HOMEPAGE="https://github.com/openSUSE/hwinfo"
-SRC_URI="https://github.com/openSUSE/hwinfo/tarball/be6a9796a7d3497e25449c647304d555d5767cf4 -> hwinfo-22.2-be6a979.tar.gz"
+SRC_URI="https://github.com/openSUSE/hwinfo/tarball/a0ce17bcf402090196fe33a4b21530176f66c15c -> hwinfo-22.3-a0ce17b.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
