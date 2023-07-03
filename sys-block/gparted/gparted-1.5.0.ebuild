@@ -1,8 +1,7 @@
-# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
-inherit gnome2
+EAPI=7
+inherit gnome3
 
 DESCRIPTION="Gnome Partition Editor"
 HOMEPAGE="https://gparted.org/"
@@ -10,7 +9,7 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-2+ FDL-1.2+"
 SLOT="0"
-KEYWORDS="amd64 ~arm ~ppc ~ppc64 x86"
+KEYWORDS="*"
 IUSE="btrfs cryptsetup dmraid f2fs fat hfs jfs kde mdadm ntfs policykit reiserfs reiser4 udf wayland xfs"
 
 COMMON_DEPEND="
@@ -58,7 +57,7 @@ DEPEND="${COMMON_DEPEND}
 "
 
 src_configure() {
-	gnome2_src_configure \
+	gnome3_src_configure \
 		--enable-doc \
 		--enable-online-resize \
 		$(use_enable wayland xhost-root) \
@@ -67,7 +66,7 @@ src_configure() {
 }
 
 src_install() {
-	gnome2_src_install
+	gnome3_src_install
 
 	local _ddir="${D}"/usr/share/applications
 	local _bdir="${D}"/usr/bin
