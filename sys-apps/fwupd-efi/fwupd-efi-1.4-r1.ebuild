@@ -8,7 +8,7 @@ inherit meson python-any-r1 toolchain-funcs
 
 DESCRIPTION="EFI executable for fwupd"
 HOMEPAGE="https://fwupd.org"
-SRC_URI="https://github.com/fwupd/fwupd-efi/tarball/eb79ba8d3c35549f023a9d5fd2fe4c1c70c084d2 -> fwupd-efi-1.4-eb79ba8.tar.gz"
+SRC_URI="https://github.com/fwupd/fwupd-efi/releases/download/1.4/fwupd-efi-1.4.tar.xz -> fwupd-efi-1.4.tar.xz"
 
 LICENSE="LGPL-2.1+"
 SLOT="0"
@@ -27,6 +27,10 @@ DEPEND="
 
 RDEPEND="!<sys-apps/fwupd-1.6.0"
 
+PATCHES=(
+	"${FILESDIR}"/fwupd-efi-1.4-efi_ld_override.patch
+)
+
 post_src_unpack() {
 	if [ ! -d "${S}" ]; then
 		mv fwupd-fwupd-efi* "${S}" || die
@@ -40,6 +44,7 @@ src_prepare() {
 
 src_configure() {
 	local emesonargs=(
+		-Defi-ld="$(tc-getLD)"
 		-Defi-libdir="${EPREFIX}"/usr/$(get_libdir)
 		-Defi_sbat_distro_id="funtoo"
 		-Defi_sbat_distro_summary="Funtoo GNU/Linux"

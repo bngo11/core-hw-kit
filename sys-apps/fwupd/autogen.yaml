@@ -9,11 +9,13 @@ fwupd_rule:
           repo: fwupd
           query: releases
     - fwupd-efi:
+        revision:
+          '1.4': 1
         github:
           user: fwupd
           repo: fwupd-efi
-          query: tags
-
+          query: releases
+          tarball: fwupd-efi-{version}.tar.xz
 python_mods_rule:
   generator: pypi-compat-1
   defaults:
