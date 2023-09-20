@@ -5,7 +5,7 @@ inherit linux-mod
 
 DESCRIPTION="Linux Driver for USB WiFi Adapters that are based on the RTL8811CU, RTL8821CU, RTL8821CUH and RTL8731AU Chipsets"
 HOMEPAGE="https://github.com/morrownr/8821cu-20210916"
-SRC_URI="https://github.com/morrownr/8821cu-20210916/archive/9e2772540f66a69170f43864a6560d0d190d97b1.tar.gz -> rtl8821cu-20230807-9e2772540f66a69170f43864a6560d0d190d97b1.tar.gz"
+SRC_URI="https://github.com/morrownr/8821cu-20210916/archive/f6d4598290c5e9c8e545130e8a31d130f6d135f4.tar.gz -> rtl8821cu-20230910-f6d4598290c5e9c8e545130e8a31d130f6d135f4.tar.gz"
 
 LICENSE="GPL-2"
 KEYWORDS="*"
@@ -14,7 +14,7 @@ DEPEND="virtual/linux-sources"
 
 MODULE_NAMES="8821cu(net/wireless)"
 BUILD_TARGETS="all"
-S="${WORKDIR}/8821cu-20210916-9e2772540f66a69170f43864a6560d0d190d97b1"
+S="${WORKDIR}/8821cu-20210916-f6d4598290c5e9c8e545130e8a31d130f6d135f4"
 
 src_prepare() {
 	default
