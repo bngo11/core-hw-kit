@@ -13,10 +13,9 @@ SRC_URI="{{artifacts[0].src_uri}}"
 LICENSE="LGPL-2.1+"
 SLOT="0"
 KEYWORDS="*"
-IUSE="archive bash-completion bluetooth +dell +elogind fastboot flashrom gnutls gtk-doc gusb introspection logitech lzma +man minimal modemmanager nvme policykit spi +sqlite synaptics test tpm uefi"
+IUSE="archive bash-completion bluetooth +elogind fastboot flashrom gnutls gtk-doc gusb introspection logitech lzma +man minimal modemmanager nvme policykit spi +sqlite synaptics test tpm uefi"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}
 	^^ ( elogind minimal )
-	dell? ( uefi )
 	fastboot? ( gusb )
 	logitech? ( gusb )
 	minimal? ( !introspection )
@@ -53,10 +52,8 @@ COMMON_DEPEND="${PYTHON_DEPS}
 	>=net-libs/libsoup-2.51.92:2.4[introspection?]
 	net-misc/curl
 	archive? ( app-arch/libarchive:= )
-	dell? (
-		>=app-crypt/tpm2-tss-2.0
-		>=sys-libs/libsmbios-2.4.0
-	)
+	>=app-crypt/tpm2-tss-2.0
+	>=sys-libs/libsmbios-2.4.0
 	elogind? ( >=sys-auth/elogind-211 )
 	flashrom? ( >=sys-apps/flashrom-1.2-r3 )
 	gnutls? ( net-libs/gnutls )
@@ -113,7 +110,6 @@ src_prepare() {
 src_configure() {
 	local plugins=(
 		-Dplugin_gpio="enabled"
-		$(meson_feature dell plugin_dell)
 		$(meson_feature fastboot plugin_fastboot)
 		$(meson_feature flashrom plugin_flashrom)
 		$(meson_feature gusb plugin_uf2)
