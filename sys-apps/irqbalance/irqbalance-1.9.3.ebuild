@@ -6,7 +6,7 @@ inherit autotools systemd linux-info
 
 DESCRIPTION="The irqbalance source tree - The new official site for irqbalance"
 HOMEPAGE="https://github.com/Irqbalance/irqbalance"
-SRC_URI="https://github.com/Irqbalance/irqbalance/tarball/0680912fba002e419170f63a3d66ac079fa7c427 -> irqbalance-1.9.2-0680912.tar.gz"
+SRC_URI="https://github.com/Irqbalance/irqbalance/tarball/5635a2eabb7fe20912807a28d8b6793831ef9936 -> irqbalance-1.9.3-5635a2e.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
