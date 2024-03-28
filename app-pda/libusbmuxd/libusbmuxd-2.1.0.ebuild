@@ -6,7 +6,7 @@ inherit autotools
 
 DESCRIPTION="USB multiplex daemon for use with Apple iPhone/iPod Touch devices"
 HOMEPAGE="https://www.libimobiledevice.org/"
-SRC_URI="https://github.com/libimobiledevice/libusbmuxd/tarball/ce98c346b7c1dc2a21faea4fd3f32c88e27ca2af -> libusbmuxd-2.0.2-ce98c34.tar.gz"
+SRC_URI="https://github.com/libimobiledevice/libusbmuxd/tarball/032000e9ba4c246d0899acbdd32ef71990f11c60 -> libusbmuxd-2.1.0-032000e.tar.gz"
 LICENSE="GPL-2+ LGPL-2.1+"
 
 SLOT="0/2.0-6" # based on SONAME of libusbmuxd-2.0.so
