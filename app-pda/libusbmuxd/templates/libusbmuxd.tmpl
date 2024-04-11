@@ -4,9 +4,9 @@ EAPI=7
 
 inherit autotools
 
-DESCRIPTION="USB multiplex daemon for use with Apple iPhone/iPod Touch devices"
+DESCRIPTION="Support library for libimobiledevice projects"
 HOMEPAGE="https://www.libimobiledevice.org/"
-SRC_URI="{{ artifacts[0].src_uri }}"
+SRC_URI="{{ src_uri }}"
 LICENSE="GPL-2+ LGPL-2.1+"
 
 SLOT="0/2.0-6" # based on SONAME of libusbmuxd-2.0.so
@@ -15,6 +15,7 @@ IUSE="static-libs"
 
 RDEPEND="
 	>=app-pda/libplist-2.2.0:=
+	>=app-pda/libimobiledevice-glue-1.2.0:=
 "
 DEPEND="${RDEPEND}"
 BDEPEND="
