@@ -5,12 +5,12 @@ inherit ego
 
 DESCRIPTION="Linux firmware files"
 HOMEPAGE="https://git.kernel.org/?p=linux/kernel/git/firmware/linux-firmware.git"
-SRC_URI="https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-20240220.tar.gz -> linux-firmware-20240220.tar.gz"
+SRC_URI="https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-20240513.tar.gz -> linux-firmware-20240513.tar.gz"
 
 LICENSE="GPL-2 GPL-2+ GPL-3 BSD MIT MPL-1.1 linux-fw-redistributable BSD-2 BSD-4 ISC no-source-code"
 SLOT="0"
 IUSE="initramfs"
-KEYWORDS="" # FL-12114 (amdgpu regression)
+KEYWORDS="*"
 RESTRICT="strip test"
 QA_PREBUILT="*"
 
