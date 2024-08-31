@@ -9,16 +9,17 @@ inherit autotools python-r1
 
 DESCRIPTION="Support library to communicate with Apple iPhone/iPod Touch devices"
 HOMEPAGE="https://www.libimobiledevice.org/"
-SRC_URI="https://github.com/libimobiledevice/libimobiledevice/archive/9649448434ab5c674d2cc11f76e69e6ee5e9dc09.zip -> libimobiledevice-1.3.0_p20240330-9649448.zip"
+SRC_URI="https://github.com/libimobiledevice/libimobiledevice/archive/42f25532bd98a3ffe361e719f9c51fb05573deb3.zip -> libimobiledevice-1.3.0_p20240830-42f2553.zip"
 
 # While COPYING* doesn't mention 'or any later version', all the headers do, hence use +
 LICENSE="GPL-2+ LGPL-2.1+"
-SLOT="0/1.0-6" # based on SONAME of libimobiledevice-1.0.so
+SLOT="0"
 KEYWORDS="*"
 IUSE="doc gnutls python static-libs"
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
 RDEPEND="
+	>=app-pda/libtatsu-1.0.3:=
 	>=app-pda/libplist-2.2.0:=
 	>=app-pda/libusbmuxd-2.0.2:=
 	gnutls? (

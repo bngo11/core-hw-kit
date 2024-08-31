@@ -1,9 +1,9 @@
 libplist:
   generator: github-1
   packages:
-    - libplist:
+    - libtatsu:
         github:
           user: libimobiledevice
-          repo: libplist
+          repo: libtatsu
           query: releases
-          tarball: libplist-{version}.tar.bz2
+          tarball: libtatsu-{version}.tar.bz2
