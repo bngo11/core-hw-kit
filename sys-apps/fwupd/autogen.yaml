@@ -22,4 +22,6 @@ python_mods_rule:
     python_compat: python3+
     cat: dev-python
   packages:
-    - pefile
+    - pefile:
+        du_pep517: setuptools
+
