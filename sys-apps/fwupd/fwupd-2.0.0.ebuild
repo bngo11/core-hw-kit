@@ -8,7 +8,7 @@ inherit bash-completion-r1 linux-info meson python-single-r1 vala xdg
 
 DESCRIPTION="Aims to make updating firmware on Linux automatic, safe and reliable"
 HOMEPAGE="https://fwupd.org"
-SRC_URI="https://github.com/fwupd/fwupd/tarball/eb1cd421abdbf2c9b3ba61219c21a79ca9d80ab2 -> fwupd-1.9.24-eb1cd42.tar.gz"
+SRC_URI="https://github.com/fwupd/fwupd/tarball/8571aabd724510cfa371130894f4c34bbfb1d097 -> fwupd-2.0.0-8571aab.tar.gz"
 
 LICENSE="LGPL-2.1+"
 SLOT="0"
