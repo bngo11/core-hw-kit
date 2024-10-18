@@ -13,13 +13,12 @@ SRC_URI="https://github.com/fwupd/fwupd/tarball/a536f5b60a335cd025e7846913ba1225
 LICENSE="LGPL-2.1+"
 SLOT="0"
 KEYWORDS="*"
-IUSE="archive bash-completion bluetooth +elogind fastboot flashrom gnutls gtk-doc gusb introspection logitech lzma +man minimal modemmanager nvme policykit spi +sqlite synaptics test tpm uefi"
+IUSE="archive bash-completion bluetooth +elogind fastboot flashrom gnutls gtk-doc gusb introspection logitech lzma +man minimal modemmanager nvme policykit +sqlite synaptics test tpm uefi"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}
 	^^ ( elogind minimal )
 	fastboot? ( gusb )
 	logitech? ( gusb )
 	minimal? ( !introspection )
-	spi? ( lzma )
 	synaptics? ( gnutls )
 	uefi? ( gnutls )
 "
@@ -117,7 +116,6 @@ src_configure() {
 		$(meson_feature modemmanager plugin_modem_manager)
 		$(meson_feature nvme plugin_nvme)
 		$(meson_feature sqlite)
-		$(meson_use spi plugin_intel_spi)
 		$(meson_feature synaptics plugin_synaptics_mst)
 		$(meson_feature synaptics plugin_synaptics_rmi)
 		$(meson_feature tpm plugin_tpm)
@@ -142,7 +140,6 @@ src_configure() {
 		$(meson_feature bluetooth bluez)
 		$(meson_feature elogind)
 		$(meson_feature gnutls)
-		$(meson_feature gusb)
 		$(meson_feature lzma)
 		$(meson_use man)
 		$(meson_feature introspection)
