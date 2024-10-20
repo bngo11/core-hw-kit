@@ -11,4 +11,4 @@ RESTRICT=strip test
 SLOT=0
 SRC_URI=https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-20241017.tar.gz -> linux-firmware-20241017.tar.gz
 _eclasses_=ego	770e172d5c3e0d501d27925a01b44cbc	mount-boot	6aaf58c4a4a0f44626a2bf5483de6e7e
-_md5_=2861b994f1048eb3e0e898992428c7c5
+_md5_=7dea4afb162c40ff1b586f2a872fdd98
