@@ -29,7 +29,7 @@ RDEPEND="
 	sys-apps/lsb-release"
 DEPEND="${PYTHON_DEPS}"
 
-S="${WORKDIR}"/xrmx-bootchart-868a2af
+S="${WORKDIR}"/--
 
 CONFIG_CHECK="~PROC_EVENTS ~TASKSTATS ~TASK_DELAY_ACCT ~TMPFS"
 
