@@ -13,14 +13,9 @@ SRC_URI="{{artifacts[0].src_uri}}"
 LICENSE="LGPL-2.1+"
 SLOT="0"
 KEYWORDS="*"
-IUSE="archive bash-completion bluetooth +elogind fastboot flashrom gnutls gtk-doc gusb introspection logitech lzma +man minimal modemmanager nvme policykit +sqlite synaptics test tpm uefi"
+IUSE="archive bash-completion bluetooth flashrom gnutls gtk-doc introspection +man minimal modemmanager policykit test"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}
-	^^ ( elogind minimal )
-	fastboot? ( gusb )
-	logitech? ( gusb )
 	minimal? ( !introspection )
-	synaptics? ( gnutls )
-	uefi? ( gnutls )
 "
 RESTRICT="!test? ( test )"
 
@@ -49,26 +44,16 @@ COMMON_DEPEND="${PYTHON_DEPS}
 		dev-python/pygobject:3[cairo,${PYTHON_USEDEP}]
 	')
 	>=net-libs/libsoup-2.51.92:2.4[introspection?]
-	net-misc/curl
 	archive? ( app-arch/libarchive:= )
-	>=app-crypt/tpm2-tss-2.0
 	>=sys-libs/libsmbios-2.4.0
-	elogind? ( >=sys-auth/elogind-211 )
 	flashrom? ( >=sys-apps/flashrom-1.2-r3 )
 	gnutls? ( net-libs/gnutls )
-	gusb? ( >=dev-libs/libgusb-0.3.5[introspection?] )
-	logitech? ( dev-libs/protobuf-c:= )
-	lzma? ( app-arch/xz-utils )
 	modemmanager? ( net-misc/modemmanager[qmi] )
 	policykit? ( >=sys-auth/polkit-0.103 )
-	sqlite? ( dev-db/sqlite )
-	tpm? ( app-crypt/tpm2-tss:= )
-	uefi? (
-		sys-apps/fwupd-efi
-		sys-boot/efibootmgr
-		sys-fs/udisks
-		sys-libs/efivar
-	)
+	sys-apps/fwupd-efi
+	sys-boot/efibootmgr
+	sys-fs/udisks
+	sys-libs/efivar
 "
 # Block sci-chemistry/chemical-mime-data for bug #701900
 RDEPEND="
@@ -84,9 +69,6 @@ DEPEND="
 
 pkg_setup() {
 	python-single-r1_pkg_setup
-	if use nvme ; then
-		kernel_is -ge 4 4 || die "NVMe support requires kernel >= 4.4"
-	fi
 }
 
 post_src_unpack() {
@@ -108,20 +90,8 @@ src_prepare() {
 
 src_configure() {
 	local plugins=(
-		-Dplugin_gpio="enabled"
-		$(meson_feature fastboot plugin_fastboot)
 		$(meson_feature flashrom plugin_flashrom)
-		$(meson_feature gusb plugin_uf2)
-		$(meson_feature logitech plugin_logitech_bulkcontroller)
 		$(meson_feature modemmanager plugin_modem_manager)
-		$(meson_feature nvme plugin_nvme)
-		$(meson_feature sqlite)
-		$(meson_feature synaptics plugin_synaptics_mst)
-		$(meson_feature synaptics plugin_synaptics_rmi)
-		$(meson_feature tpm plugin_tpm)
-		$(meson_feature uefi plugin_uefi_capsule)
-		$(meson_use uefi plugin_uefi_capsule_splash)
-		$(meson_feature uefi plugin_uefi_pk)
 	)
 	use ppc64 && plugins+=( -Dplugin_msr="false" )
 	use riscv && plugins+=( -Dplugin_msr="false" )
@@ -129,18 +99,14 @@ src_configure() {
 	local emesonargs=(
 		--localstatedir "${EPREFIX}"/var
 		-Dbuild="$(usex minimal standalone all)"
-		-Dconsolekit="disabled"
 		-Dsystemd="disabled"
-		-Dcurl="enabled"
 		-Defi_binary="false"
 		-Dsupported_build="enabled"
 		$(meson_feature gtk-doc docs)
 		$(meson_feature archive libarchive)
 		$(meson_use bash-completion bash_completion)
 		$(meson_feature bluetooth bluez)
-		$(meson_feature elogind)
 		$(meson_feature gnutls)
-		$(meson_feature lzma)
 		$(meson_use man)
 		$(meson_feature introspection)
 		$(meson_feature policykit polkit)
@@ -148,7 +114,6 @@ src_configure() {
 
 		${plugins[@]}
 	)
-	use uefi && emesonargs+=( -Defi_os_dir="funtoo" )
 	export CACHE_DIRECTORY="${T}"
 	meson_src_configure
 }
