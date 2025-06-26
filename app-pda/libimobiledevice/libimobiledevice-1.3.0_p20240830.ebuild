@@ -61,7 +61,10 @@ src_prepare() {
 src_configure() {
 	local ECONF_SOURCE=${S}
 
-	local myeconfargs=( $(use_enable static-libs static) )
+	local myeconfargs=(
+		--without-cython
+		$(use_enable static-libs static)
+	)
 	use gnutls && myeconfargs+=( --disable-openssl )
 
 	do_configure() {
