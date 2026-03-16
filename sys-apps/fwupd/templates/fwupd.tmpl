@@ -13,7 +13,7 @@ SRC_URI="{{artifacts[0].src_uri}}"
 LICENSE="LGPL-2.1+"
 SLOT="0"
 KEYWORDS="*"
-IUSE="archive bash-completion bluetooth flashrom gnutls gtk-doc introspection +man minimal modemmanager policykit test"
+IUSE="bash-completion bluetooth flashrom gnutls gtk-doc introspection +man minimal modemmanager policykit test"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}
 	minimal? ( !introspection )
 "
@@ -44,7 +44,6 @@ COMMON_DEPEND="${PYTHON_DEPS}
 		dev-python/pygobject:3[cairo,${PYTHON_USEDEP}]
 	')
 	>=net-libs/libsoup-2.51.92:2.4[introspection?]
-	archive? ( app-arch/libarchive:= )
 	>=sys-libs/libsmbios-2.4.0
 	flashrom? ( >=sys-apps/flashrom-1.2-r3 )
 	gnutls? ( net-libs/gnutls )
@@ -103,7 +102,6 @@ src_configure() {
 		-Defi_binary="false"
 		-Dsupported_build="enabled"
 		$(meson_feature gtk-doc docs)
-		$(meson_feature archive libarchive)
 		$(meson_use bash-completion bash_completion)
 		$(meson_feature bluetooth bluez)
 		$(meson_feature gnutls)
