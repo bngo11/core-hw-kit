@@ -7,7 +7,7 @@ inherit linux-info systemd toolchain-funcs multilib-minimal
 DESCRIPTION="Hardware Monitoring user-space utilities"
 HOMEPAGE="https://hwmon.wiki.kernel.org/ https://github.com/lm-sensors/lm-sensors"
 
-SRC_URI="https://api.github.com/repos/lm-sensors/lm-sensors/tarball/refs/tags/V3-6-0 -> lm_sensors-3.6.0.tar.gz"
+SRC_URI="https://api.github.com/repos/lm-sensors/lm-sensors/tarball/refs/tags/V3-6-2 -> lm_sensors-3.6.2.tar.gz"
 
 LICENSE="GPL-2+ LGPL-2.1"
 
