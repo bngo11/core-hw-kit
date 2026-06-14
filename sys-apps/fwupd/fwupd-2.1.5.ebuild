@@ -13,7 +13,7 @@ SRC_URI="https://github.com/fwupd/fwupd/tarball/3bbe1428476ad90a67b0dea7077d04db
 LICENSE="LGPL-2.1+"
 SLOT="0"
 KEYWORDS="*"
-IUSE="bash-completion bluetooth flashrom gnutls gtk-doc introspection +man minimal modemmanager policykit test"
+IUSE="bash-completion bluetooth gnutls gtk-doc introspection +man minimal modemmanager policykit test"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}
 	minimal? ( !introspection )
 "
@@ -45,7 +45,6 @@ COMMON_DEPEND="${PYTHON_DEPS}
 	')
 	>=net-libs/libsoup-2.51.92:2.4[introspection?]
 	>=sys-libs/libsmbios-2.4.0
-	flashrom? ( >=sys-apps/flashrom-1.2-r3 )
 	gnutls? ( net-libs/gnutls )
 	modemmanager? ( net-misc/modemmanager[qmi] )
 	policykit? ( >=sys-auth/polkit-0.103 )
@@ -89,7 +88,6 @@ src_prepare() {
 
 src_configure() {
 	local plugins=(
-		$(meson_feature flashrom plugin_flashrom)
 		$(meson_feature modemmanager plugin_modem_manager)
 	)
 	use ppc64 && plugins+=( -Dplugin_msr="false" )
