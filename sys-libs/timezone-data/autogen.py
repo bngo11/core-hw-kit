@@ -9,14 +9,15 @@ async def generate(hub, **pkginfo):
 	html_data = await hub.pkgtools.fetch.get_page(url)
 	soup = BeautifulSoup(html_data, "html.parser")
 	best_tzdata = None
-	pattern = re.compile(".*tzdata(.*)\.tar\.gz")
+	pattern = re.compile(".*time-zones/releases/(.*)")
 	for link in soup.find_all("a"):
 		href = link.get("href")
 		if pattern.match(href):
 			best_tzdata = href
 			break
 	version = pattern.match(best_tzdata).group(1)
-	best_tzcode = re.sub(r"tzdata", "tzcode", best_tzdata)
+	best_tzdata = f'https://data.iana.org/time-zones/releases/tzdata{version}.tar.gz'
+	best_tzcode = f'https://data.iana.org/time-zones/releases/tzcode{version}.tar.gz'
 	ebuild = hub.pkgtools.ebuild.BreezyBuild(
 		**pkginfo,
 		version=version,

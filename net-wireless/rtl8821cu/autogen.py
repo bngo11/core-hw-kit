@@ -4,30 +4,9 @@ from datetime import datetime, timedelta
 import re
 import base64
 
-
-async def find_latest_repo(hub, github_user):
-	repo_pattern = re.compile(
-		f"^https://github.com/{github_user}/(.+)$", flags=re.MULTILINE
-	)
-
-	perma_readme_info = await hub.pkgtools.fetch.get_page(
-		f"https://api.github.com/repos/{github_user}/8821cu/readme",
-		is_json=True,
-	)
-	perma_readme = base64.b64decode(perma_readme_info["content"]).decode("utf-8")
-
-	repo_match = repo_pattern.search(perma_readme)
-	if repo_match is None:
-		raise hub.pkgtools.ebuild.BreezyError(
-			"Can't find the latest repo for rtl8821cu"
-		)
-
-	return repo_match.group(1)
-
-
 async def generate(hub, **pkginfo):
 	user = "morrownr"
-	repo = await find_latest_repo(hub, user)
+	repo = "8821cu-20210916"
 
 	commits = await hub.pkgtools.fetch.get_page(
 		f"https://api.github.com/repos/{user}/{repo}/commits",
