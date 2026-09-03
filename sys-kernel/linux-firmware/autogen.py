@@ -23,19 +23,20 @@ async def generate(hub, **pkginfo):
 
 	for link in soup.find_all("a"):
 		href = link.get("href")
-		if href.endswith(".tar.gz"):
+		if 'tag' in href:
 			best_archives.append(href)
 		if len(best_archives) >= 3:
 			break
 
 	for best_archive in best_archives:
-		version = best_archive.split(".tar")[0].split("-")[-1]
+		version = best_archive.split("=")[-1]
+		url = f"https://mirrors.edge.kernel.org/pub/linux/kernel/firmware/linux-firmware-{version}.tar.xz"
 		masked = version in masked_versions
 		mask_reason = masked_versions[version] if masked else ""
 		ebuild = hub.pkgtools.ebuild.BreezyBuild(
 			**pkginfo,
 			version=version,
-			artifacts=[hub.pkgtools.ebuild.Artifact(url=url + f"{best_archive}")],
+			artifacts=[hub.pkgtools.ebuild.Artifact(url=url)],
 			revision=revisions,
 			masked=masked,
 			mask_reason=mask_reason
