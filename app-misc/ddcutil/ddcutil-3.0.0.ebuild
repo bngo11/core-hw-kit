@@ -8,7 +8,7 @@ WANT_AUTOMAKE=1.16
 
 DESCRIPTION="Program for querying and changing monitor settings"
 HOMEPAGE="https://www.ddcutil.com/"
-SRC_URI="https://github.com/rockowitz/ddcutil/tarball/4edf054c6bfddcc62174bbc453e26c73cfbe7bbf -> ddcutil-2.2.7-4edf054.tar.gz"
+SRC_URI="https://github.com/rockowitz/ddcutil/tarball/d369554742231baf5ecb4ea3c98f293f273305a0 -> ddcutil-3.0.0-d369554.tar.gz"
 
 SLOT="0"
 LICENSE="GPL-2"
@@ -38,7 +38,7 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}"
 
-S="${WORKDIR}/rockowitz-ddcutil-4edf054"
+S="${WORKDIR}/rockowitz-ddcutil-d369554"
 
 pkg_pretend() {
 	# This program needs /dev/ic2-* devices to communicate with the monitor.
