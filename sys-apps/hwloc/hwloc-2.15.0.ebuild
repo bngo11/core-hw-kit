@@ -6,7 +6,7 @@ inherit autotools bash-completion-r1 desktop flag-o-matic toolchain-funcs
 
 DESCRIPTION="Displays the hardware topology in convenient formats"
 HOMEPAGE="https://www.open-mpi.org/projects/hwloc/"
-SRC_URI="https://github.com/open-mpi/hwloc/tarball/b5660dff631a171a96a4b3abf5a170c9cf62d6ef -> hwloc-2.14.0-b5660df.tar.gz"
+SRC_URI="https://github.com/open-mpi/hwloc/tarball/72405deb7d0cf4282594165e05d6064d9859e4ce -> hwloc-2.15.0-72405de.tar.gz"
 
 LICENSE="BSD"
 SLOT="0/15"
