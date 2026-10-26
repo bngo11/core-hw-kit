@@ -8,7 +8,7 @@ inherit meson python-any-r1 toolchain-funcs
 
 DESCRIPTION="EFI executable for fwupd"
 HOMEPAGE="https://fwupd.org"
-SRC_URI="https://github.com/fwupd/fwupd-efi/releases/download/1.6/fwupd-efi-1.6.tar.xz -> fwupd-efi-1.6.tar.xz"
+SRC_URI="https://github.com/fwupd/fwupd-efi/releases/download/1.9/fwupd-efi-1.9.tar.xz -> fwupd-efi-1.9.tar.xz"
 
 LICENSE="LGPL-2.1+"
 SLOT="0"
